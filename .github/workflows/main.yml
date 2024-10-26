@@ -30,3 +30,15 @@ jobs:
         with:
           name: my-app
           path: artifact/
+  
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:          
+      - name: GitHub Releases
+        uses: fnkr/github-action-ghr@v1.3
+        env:
+          GHR_COMPRESS: zip
+          GHR_PATH: artifact/
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
